@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Weather App</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <div class="container">
+        <h1>Weather App</h1>
+        
+        <div class="weather-form">
+            <form method="POST">
+                {% csrf_token %}
+                <label for="city">Enter city name:</label>
+                <input type="text" id="city" name="city" required>
+                <button type="submit">Get Weather</button>
+            </form>
+        </div>
+        
+        <div class="weather-results">
+            {% if city %}
+                <h2>Weather in {{ city }}</h2>
+                <p>Temperature: {{ temperature }}°C</p>
+                <p>Description: {{ description }}</p>
+                <p>Humidity: {{ humidity }}%</p>
+            {% elif error %}
+                <p class="error">Error: {{ error }}</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
